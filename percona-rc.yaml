@@ -1,0 +1,36 @@
+id: percona-rc
+kind: ReplicationController
+apiVersion: v1beta1
+desiredState: 
+  replicas: 3
+  replicaSelector: 
+    name: percona
+  podTemplate: 
+    desiredState: 
+      manifest: 
+        version: v1beta1
+        id: percona
+        containers: 
+          - name: percona-rc
+            image: francois/percona56:0.0.1
+            cpu: 100
+            ports: 
+              - containerPort: 3306
+                hostPort: 33000
+              - containerPort: 22
+                hostPort: 33001
+              - containerPort: 80
+                hostPort: 33002
+              - containerPort: 443
+                hostPort: 33003
+              - containerPort: 4444
+                hostPort: 33004
+              - containerPort: 4567
+                hostPort: 33005
+              - containerPort: 4568
+                hostPort: 33006
+    labels: 
+      name: percona
+      service: percona-rc
+labels: 
+  name: percona-replication-controller
